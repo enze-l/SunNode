@@ -6,8 +6,9 @@ import _thread
 
 class Networking:
     
-    def __init__(self, lightsensor):
+    def __init__(self, controller, lightsensor):
         self.lightsensor = lightsensor
+        self.controller = controller
         
         self.led = Pin(2,Pin.OUT)
         
@@ -66,7 +67,7 @@ class Networking:
         
     def execute_command(self, line, cl):
         if line == 'toggle':
-            self.led.value(not self.led.value())
+            self.controller.toggle_light()
         if line == 'automation':
-            print(self.lightsensor.get_data())
+            self.controller.enable_automation()
             cl.send(self.lightsensor.get_data_string() + '\n')
