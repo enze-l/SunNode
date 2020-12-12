@@ -12,7 +12,7 @@ lightsensor = LightSensor(controller)
 print("Lightmodule started")
 
 print("Creating ProtocolMachine...")
-protocol_machine = ProtocolMachine(controller)
+protocol_machine = ProtocolMachine(controller, lightsensor)
 print("ProtocolMachine created")
 
 print("Starting Server...")

@@ -1,8 +1,9 @@
 import re
 
 class ProtocolMachine:
-    def __init__(self, controller):
+    def __init__(self, controller, lightsensor):
         self.controller = controller
+        self.lightsensor = lightsensor
     
     def process_input(self, line, cl):
         if line == 'toggle':
