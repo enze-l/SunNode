@@ -3,8 +3,8 @@ from machine import Pin
 class Controller:
     
     def __init__(self):
-        self.automation = True
-        self.trigger_value = 15000
+        self.automation = False
+        self.trigger_value = 1000
         self.residents_present = True
         self.sun = Pin(2,Pin.OUT)
         
@@ -16,7 +16,7 @@ class Controller:
         self.sun.value(not self.sun.value())
         
     def set_trigger_level(self, level):
-        self.trigger_value = level
+        self.trigger_value = int(level)
         
     def set_residents_present(self, present):
         self.residents_present = present
