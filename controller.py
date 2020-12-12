@@ -6,7 +6,6 @@ class Controller:
         self.automation = True
         self.trigger_value = 15000
         self.residents_present = True
-        
         self.sun = Pin(2,Pin.OUT)
         
     def enable_automation(self):

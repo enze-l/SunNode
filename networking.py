@@ -1,16 +1,12 @@
 import network
 import socket
-from machine import Pin
 from time import sleep
 import _thread
 
 class Networking:
     
-    def __init__(self, controller, lightsensor):
-        self.lightsensor = lightsensor
-        self.controller = controller
-        
-        self.led = Pin(2,Pin.OUT)
+    def __init__(self, protocol_machine):
+        self.protocol_machine = protocol_machine
         
         self.wifi_tcp = network.WLAN(network.STA_IF)
         self.wifi_ssid = None
@@ -62,12 +58,5 @@ class Networking:
             line = str(cl_file.readline(), 'utf8')
             line = line.replace('\n', '')
             print(line)
-            self.execute_command(line, cl)
+            self.protocol_machine.process_input(line, cl)
             cl.close()
-        
-    def execute_command(self, line, cl):
-        if line == 'toggle':
-            self.controller.toggle_light()
-        if line == 'automation':
-            self.controller.enable_automation()
-            cl.send(self.lightsensor.get_data_string() + '\n')

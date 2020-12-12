@@ -1,6 +1,7 @@
 from networking import Networking
 from light_sensor import LightSensor
 from controller import Controller
+from protocol_machine import ProtocolMachine
 
 print("Starting Controller...")
 controller = Controller()
@@ -10,6 +11,10 @@ print("Starting Lightmodule...")
 lightsensor = LightSensor(controller)
 print("Lightmodule started")
 
+print("Creating ProtocolMachine...")
+protocol_machine = ProtocolMachine(controller)
+print("ProtocolMachine created")
+
 print("Starting Server...")
-networking = Networking(controller, lightsensor)
+networking = Networking(protocol_machine)
 print("Networking started")
