@@ -2,6 +2,8 @@ import network
 import socket
 from time import sleep
 import _thread
+import ntptime
+import utime
 
 class Networking:
     
@@ -29,6 +31,7 @@ class Networking:
         
     def start_networking(self):
         self.start_wifi()
+        self.listen_time()
         self.init_socket()
         self.listen()
         
@@ -41,7 +44,7 @@ class Networking:
                 pass
         print('network config:', self.wifi_tcp.ifconfig())
 
-    def init_socket(self):
+    def init_socket(self): 
         self.address = socket.getaddrinfo('0.0.0.0', self.server_port)[0][-1]
         self.socket = socket.socket()
         self.socket.bind(self.address)
@@ -50,13 +53,29 @@ class Networking:
         _thread.start_new_thread(self.listen_socket, ())
         
     def listen_socket(self):
+        client = None
         while True:
-            self.socket.listen(1)
-            cl, self.address = self.socket.accept()
-            print('client connected from', self.address)
-            cl_file = cl.makefile('rwb', 0)
-            line = str(cl_file.readline(), 'utf8')
-            line = line.replace('\n', '')
-            print(line)
-            self.protocol_machine.process_input(line, cl)
-            cl.close()
+            try:
+                self.socket.listen(1)
+                client, self.address = self.socket.accept()
+                print('client connected from', self.address)
+                client_file = client.makefile('rwb', 0)
+                line = str(client_file.readline(), 'utf8')
+                line = line.replace('\n', '')
+                print(line)
+                self.protocol_machine.process_input(line, client)
+                client.close()
+            except OSError:
+                print('socket was still in use. closing...')
+                client.close()
+            
+    def listen_time(self):
+        while True:
+            try:
+                ntptime.settime()
+                print('time = ' + str(utime.localtime()))
+                break
+            except OSError as err:
+                print('restarting network and trying again', err)
+                self.wifi_tcp.active(False)
+                self.start_wifi()
