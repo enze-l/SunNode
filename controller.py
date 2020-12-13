@@ -7,6 +7,8 @@ class Controller:
         self.trigger_value = 1000
         self.residents_present = True
         self.sun = Pin(2,Pin.OUT)
+        self.start_time = 8.0
+        self.end_time = 22.0
         
     def enable_automation(self):
         self.automation = True
@@ -27,5 +29,11 @@ class Controller:
                 self.sun.value(True)
             else:
                 self.sun.value(False)
+                
+    def set_start_time(self, time):
+        self.start_time = float(time)
+        
+    def set_end_time(self, time):
+        self.end_time = float(time)
                 
             
