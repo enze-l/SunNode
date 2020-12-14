@@ -10,5 +10,10 @@ class Scheduler:
             
     def time_event(self):
         while True:
-            self.controller.check_time(utime.localtime())
+            time = None
+            if utime.localtime()[4] < 10:
+                time = str(utime.localtime()[3]) + ':0' + str(utime.localtime()[4])
+            else:
+                time = str(utime.localtime()[3]) + ':' + str(utime.localtime()[4])
+            self.controller.check_time(time)
             sleep(1)
