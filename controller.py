@@ -10,6 +10,7 @@ class Controller:
         self.sun.value(False)
         self.start_time = '8:00'
         self.end_time = '22:00'
+        self.working_time = False
         
     def enable_automation(self):
         self.automation = True
@@ -26,7 +27,7 @@ class Controller:
         
     def notify_light_level(self, level):
         if self.automation:
-            if level <= self.trigger_value:
+            if self.working_time and level <= self.trigger_value:
                 self.sun.value(True)
             else:
                 self.sun.value(False)
@@ -38,6 +39,11 @@ class Controller:
         self.end_time = time
         
     def check_time(self, time):
-        print(time)
-                
+        current = int(time.replace(':', ''))
+        start = int(self.start_time.replace(':', ''))
+        end = int(self.end_time.replace(':', ''))
+        if start <= current and current < end:
+            self.working_time = True
+        else:
+            self.working_time = False
             
