@@ -6,6 +6,7 @@ import _thread
 class LightSensor:
     def __init__(self, controller):
         self.sensor = BH1750(I2C(scl=Pin(22), sda=Pin(21)))
+        self.max_level = 0
         self.list = []
         self.listen()
         self.controller = controller
@@ -20,6 +21,9 @@ class LightSensor:
             self.list.append(level)
             if len(self.list) > 25:
                 self.list.pop(0)
+            if level > self.max_level:
+                self.max_level = level
+                print(self.max_level)
             sleep(1)
             
     def get_data(self):
@@ -27,3 +31,6 @@ class LightSensor:
     
     def get_data_string(self):
         return ' '.join(map(str, self.list))
+    
+    def get_max_level(self):
+        return self.max_level

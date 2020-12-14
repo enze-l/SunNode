@@ -17,4 +17,5 @@ class ProtocolMachine:
             self.controller.set_start_time(line.split()[1])
         elif re.match('^endTime', line):
             self.controller.set_end_time(line.split()[1])
-        
+        elif line == 'getData':
+            cl.send(self.lightsensor.get_data_string() + '\n')
