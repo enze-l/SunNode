@@ -21,5 +21,5 @@ networking = Networking(protocol_machine)
 print("Networking started")
 
 print("Starting Scheduler...")
-scheduler = Scheduler(controller, networking)
+scheduler = Scheduler(controller)
 print("Scheduler started")

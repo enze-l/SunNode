@@ -36,5 +36,8 @@ class Controller:
         
     def set_end_time(self, time):
         self.end_time = time
+        
+    def check_time(self, time):
+        print(time)
                 
             
