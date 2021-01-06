@@ -5,6 +5,7 @@ class Controller:
     def __init__(self):
         self.automation = False
         self.trigger_value = 1000
+        self.last_value = 0
         self.residents_present = True
         self.sun = Pin(2,Pin.OUT)
         self.sun.value(False)
@@ -14,6 +15,7 @@ class Controller:
         
     def enable_automation(self):
         self.automation = True
+        self.notify_light_level(self.last_value)
         
     def toggle_light(self):
         self.automation = False
@@ -26,6 +28,7 @@ class Controller:
         self.residents_present = present
         
     def notify_light_level(self, level):
+        self.last_value = level
         if self.automation:
             if self.working_time and level <= self.trigger_value:
                 self.sun.value(True)
