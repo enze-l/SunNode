@@ -5,8 +5,9 @@ import utime
 import _thread
 
 class LightSensor:
+    
     def __init__(self, controller):
-        self.sensor = BH1750(I2C(scl=Pin(22), sda=Pin(21)))
+        self.sensor = BH1750(SoftI2C(scl=Pin(22), sda=Pin(21)))
         self.max_level = 0
         self.last_day_list = None
         self.list = []
