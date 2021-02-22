@@ -3,6 +3,7 @@ from light_sensor import LightSensor
 from controller import Controller
 from protocol_machine import ProtocolMachine
 from scheduler import Scheduler
+from button_handler import ButtonHandler
 
 print("Starting Controller...")
 controller = Controller()
@@ -23,3 +24,5 @@ print("Networking started")
 print("Starting Scheduler...")
 scheduler = Scheduler(controller)
 print("Scheduler started")
+
+hello
