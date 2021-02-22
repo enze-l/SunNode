@@ -11,6 +11,7 @@ class Controller:
         self.sun.value(False)
         self.start_time = '8:00'
         self.end_time = '22:00'
+        self.last_time = '00:00'
         self.working_time = False
         
     def enable_automation(self):
@@ -23,6 +24,7 @@ class Controller:
         
     def set_trigger_level(self, level):
         self.trigger_value = int(level)
+        self.notify_light_level(self.last_value)
         
     def set_residents_present(self, present):
         self.residents_present = present
@@ -38,10 +40,16 @@ class Controller:
     def set_start_time(self, time):
         self.start_time = time
         
+        
     def set_end_time(self, time):
         self.end_time = time
         
+    def trigger_time_change(self):
+        self.check_time(self.last_time)
+        self.notify_light_level(selft.last_level)
+        
     def check_time(self, time):
+        self.last_time = time;
         current = int(time.replace(':', ''))
         start = int(self.start_time.replace(':', ''))
         end = int(self.end_time.replace(':', ''))

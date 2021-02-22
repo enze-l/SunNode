@@ -4,8 +4,9 @@ import ntptime
 import _thread
 
 class Scheduler:
-    def __init__(self, controller):
+    def __init__(self, controller, light_sensor):
         self.controller = controller
+        self.light_sensor = light_sensor
         _thread.start_new_thread(self.time_event, ())
             
     def time_event(self):
@@ -15,5 +16,7 @@ class Scheduler:
                 time = str(utime.localtime()[3]) + ':0' + str(utime.localtime()[4])
             else:
                 time = str(utime.localtime()[3]) + ':' + str(utime.localtime()[4])
+            if (utime.localtime()[4] % 15) == 0:
+                self.light_sensor.report_level()
             self.controller.check_time(time)
             sleep(1)

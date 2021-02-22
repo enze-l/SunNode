@@ -11,25 +11,20 @@ class LightSensor:
         self.max_level = 0
         self.last_day_list = None
         self.list = []
-        self.listen()
         self.controller = controller
         self.last_measurement_time = 0
-        
-    def listen(self):
-        _thread.start_new_thread(self.report_level, ())
+        self.report_level()
 
     def report_level(self):
-        while True:
-            level = self.sensor.luminance(BH1750.ONCE_HIRES_1)
-            self.controller.notify_light_level(level)
-            self.list.append(level)
-            if self.is_new_day():
-                self.last_day_list = self.list
-                self.list = []
-            if level > self.max_level:
-                self.max_level = level
-                print(self.max_level)
-            sleep(3)
+        level = self.sensor.luminance(BH1750.ONCE_HIRES_1)
+        self.controller.notify_light_level(level)
+        self.list.append(level)
+        if self.is_new_day():
+            self.last_day_list = self.list
+            self.list = []
+        if level > self.max_level:
+            self.max_level = level
+            print(self.max_level)
             
     def is_new_day(self):
         time = utime.localtime()[3]
@@ -41,7 +36,6 @@ class LightSensor:
             self.last_measurement_time = time
             return False
     
-            
     def get_data(self):
         return self.list
     
