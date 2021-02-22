@@ -24,5 +24,3 @@ print("Networking started")
 print("Starting Scheduler...")
 scheduler = Scheduler(controller)
 print("Scheduler started")
-
-hello
