@@ -1,4 +1,4 @@
-from machine import Pin, I2C
+from machine import Pin, SoftI2C
 from bh1750 import BH1750
 from time import sleep
 import utime
