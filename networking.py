@@ -48,7 +48,6 @@ class Networking:
         self.address = socket.getaddrinfo('0.0.0.0', self.server_port)[0][-1]
         self.socket = socket.socket()
         self.socket.bind(self.address)
-        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         
     def listen(self):
         _thread.start_new_thread(self.listen_socket, ())
