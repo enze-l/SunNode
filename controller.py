@@ -4,7 +4,7 @@ class Controller:
     
     def __init__(self):
         self.automation = False
-        self.trigger_value = 1000
+        self.trigger_value = 250
         self.last_value = 0
         self.sun = Pin(2,Pin.OUT)
         self.sun.value(False)
