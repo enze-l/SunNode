@@ -16,7 +16,8 @@ class LightSensor:
         self.report_level()
 
     def report_level(self):
-        level = self.sensor.luminance(BH1750.ONCE_HIRES_1)
+        level = int(self.sensor.luminance(BH1750.ONCE_HIRES_1))
+        print(level)
         self.controller.notify_light_level(level)
         self.list.append(level)
         if self.is_new_day():
@@ -24,7 +25,6 @@ class LightSensor:
             self.list = []
         if level > self.max_level:
             self.max_level = level
-            print(self.max_level)
             
     def is_new_day(self):
         time = utime.localtime()[3]
