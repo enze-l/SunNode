@@ -47,7 +47,6 @@ class Networking:
     def init_socket(self): 
         self.address = socket.getaddrinfo('0.0.0.0', self.server_port)[0][-1]
         self.socket = socket.socket()
-        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.socket.bind(self.address)
         
     def listen(self):
@@ -66,9 +65,8 @@ class Networking:
                 print(line)
                 self.protocol_machine.process_input(line, client)
                 client.close()
-            except OSError:
-                print('socket was still in use. closing...')
-                client.close()
+            except Exception as e:
+                print(e)
             
     def listen_time(self):
         while True:

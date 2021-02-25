@@ -16,13 +16,15 @@ class ProtocolMachine:
             self.controller.set_start_time(line.split()[1])
         elif re.match('^endTime', line):
             self.controller.set_end_time(line.split()[1])
-        elif line == 'getData':
-            list = []
-            list.append(str(self.lightsensor.max_level))
-            list.append(str(self.controller.trigger_value))
-            list.append(str(self.controller.start_time))
-            list.append(str(self.controller.end_time))
-            list.append(self.lightsensor.get_data_array() + '\n')
-            data = ' '.join(map(str, list))
+        list = []
+        list.append(str(self.lightsensor.max_level))
+        list.append(str(self.controller.trigger_value))
+        list.append(str(self.controller.start_time))
+        list.append(str(self.controller.end_time))
+        list.append(str(self.controller.automation))
+        list.append(str(self.controller.sun.value()))
+        list.append(self.lightsensor.get_data_array() + '\n')
+        data = ' '.join(map(str, list))
+        if line == 'getData':
             print(data)
-            cl.send(data)
+        cl.send(data)
