@@ -17,6 +17,7 @@ class Scheduler:
             else:
                 time = str(utime.localtime()[3]) + ':' + str(utime.localtime()[4])
             if utime.localtime()[4] % 15 == 0 and utime.localtime()[5] == 0:
-                self.light_sensor.report_level()
+                level = self.light_sensor.get_level()
+                self.controller.notify_light_level(level)
             self.controller.check_time(time)
             sleep(1)

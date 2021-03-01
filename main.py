@@ -9,7 +9,7 @@ controller = Controller()
 print("Controller started")
 
 print("Starting Lightmodule...")
-lightsensor = LightSensor(controller)
+lightsensor = LightSensor()
 print("Lightmodule started")
 
 print("Creating ProtocolMachine...")
