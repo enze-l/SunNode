@@ -63,7 +63,8 @@ class Networking:
                 line = str(client_file.readline(), 'utf8')
                 line = line.replace('\n', '')
                 print(line)
-                self.protocol_machine.process_input(line, client)
+                data = self.protocol_machine.process_input(line)
+                client.send(data)
                 client.close()
             except Exception as e:
                 print(e)

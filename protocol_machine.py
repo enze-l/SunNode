@@ -5,7 +5,7 @@ class ProtocolMachine:
         self.controller = controller
         self.lightsensor = lightsensor
 
-    def process_input(self, line, cl):
+    def process_input(self, line):
         if line == 'toggle':
             self.controller.toggle_light()
         elif line == 'automation':
@@ -27,4 +27,4 @@ class ProtocolMachine:
         data = ' '.join(map(str, list))
         if line == 'getData':
             print(data)
-        cl.send(data)
+        return data
