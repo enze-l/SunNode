@@ -35,9 +35,6 @@ class LightSensor:
             self.last_measurement_time = time
             return False
     
-    def get_data(self):
-        return self.list
-    
     def get_data_array(self):
         if self.last_day_list != None:
             return ' '.join(map(str, self.last_day_list))
