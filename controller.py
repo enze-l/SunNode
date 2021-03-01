@@ -13,8 +13,8 @@ class Controller:
         self.last_time = None
         self.working_time = False
         
-    def enable_automation(self):
-        self.automation = True
+    def toggle_automation(self):
+        self.automation = not self.automation
         self.notify_light_level(self.last_value)
         
     def toggle_light(self):

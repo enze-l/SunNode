@@ -9,7 +9,7 @@ class ProtocolMachine:
         if line == 'toggle':
             self.controller.toggle_light()
         elif line == 'automation':
-            self.controller.enable_automation()
+            self.controller.toggle_automation()
         elif re.match('^level', line):
             self.controller.set_trigger_level(line.split()[1])
         elif re.match('^startTime', line):
